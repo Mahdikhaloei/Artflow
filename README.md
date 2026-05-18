@@ -1,27 +1,48 @@
-# ArtFlow
+# 🎨 Artflow
 
-## Setup Project
+An automated **AI-powered product mockup pipeline** built with Flask. Upload an image, apply an AI style transform via OpenAI, render it onto a 3D cup using Blender, and receive the final result by email — all handled asynchronously.
 
-Install Docker, Docker Compose and you are done!
+## How It Works
 
-### Use `project.py` script
+```
+Upload Image → OpenAI Style Transfer → Blender 3D Render → Email Delivery
+```
 
-- To run the project, simply execute this command: `./project.py start -d`
-- To get access to the project's shell, use this command: `./project.py shell`
-- To run static type checks, use mypy command: `./project.py mypy`
-- To stop the project, use stop command: `./project.py stop`
+## Stack
 
-### PostgreSQL
+- **Flask** + Flask-RESTful + flask-smorest — REST API
+- **OpenAI** — AI image transformation
+- **Blender** — 3D rendering (runs as a Docker container)
+- **Celery** + Redis — async task queue
+- **PostgreSQL** — database
+- **Docker Compose** — fully containerized environment
 
-This app comes with PostgreSQL as a docker container. Which means you don't need to do anything,
-just run the docker containers (defined in `local.yml`) and everything will be setup for you automatically.
+## Getting Started
 
-## Setup Development
+```bash
+git clone https://github.com/Mahdikhaloei/Artflow.git
+cd Artflow
+./project.py start -d
+```
 
-### pre-commit
+> Requires Docker & Docker Compose. Everything else (PostgreSQL, Redis, Blender, Celery worker) spins up automatically.
 
-- Install Docker and Docker Compose
-- Clone project to your system: `git clone https://github.com/stdevteam/artflow.git`
-- Open project in your favorite IDE or Text Editor
-- Install [pre-commit](https://pre-commit.com/) on your system
-- Install pre-commit hooks: `pre-commit install && pre-commit install --hook-type pre-push`
+## CLI
+
+```bash
+./project.py start -d    # Start all services
+./project.py stop        # Stop all services
+./project.py shell       # Open app shell
+./project.py mypy        # Run type checks
+```
+
+## Development
+
+```bash
+pip install pre-commit
+pre-commit install && pre-commit install --hook-type pre-push
+```
+
+---
+
+Built by [Mahdi Khaloei](https://github.com/Mahdikhaloei)
