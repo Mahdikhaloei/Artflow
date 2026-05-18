@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+export FLASK_APP=run.py
+export FLASK_ENV=development
+
+if [ ! -d "migrations" ]; then
+    flask db init
+fi
+
+flask db migrate -m "autogenerate" || echo "No changes to migrate"
+flask db upgrade
+
+exec flask run --host=0.0.0.0 --port=8000 --reload
